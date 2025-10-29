@@ -4,62 +4,32 @@ OVH 服务器自动抢购系统
 
 ---
 
-## 🚀 Docker 部署
+## 🚀 快速开始
 
-### 1. 构建并启动
+### 1. 修改安全密钥
 
-```bash
-docker-compose up -d --build
-```
-
-### 2. 访问
-
-**前端地址：** http://localhost:8080
-
----
-
-## ⚙️ 配置
-
-### 修改配置文件
-
-编辑：`backend/.env`
+编辑 `backend/.env` 文件：
 
 ```env
-API_SECRET_KEY=123456
-PORT=5000
-DEBUG=false
-ENABLE_API_KEY_AUTH=true
+API_SECRET_KEY=你的密钥
 ```
 
-### 重启生效
+### 2. 启动服务
 
 ```bash
-docker-compose up -d
-```
-
----
-
-## 🔧 更新代码
-
-```bash
-git pull
-docker-compose down
 docker-compose up -d --build
 ```
 
----
+### 3. 访问系统
 
-## 📝 端口
-
-- **前端：** 8080
-- **后端：** 5000
+**入口地址：** http://YOUR_IP:20000
 
 ---
 
 ## 🔑 首次配置
 
-1. 访问：http://localhost:8080/settings
-2. 填写"网站安全密钥"（复制 backend/.env 中的 API_SECRET_KEY）
+1. 打开 http://YOUR_IP:20000/settings
+2. 填写"网站安全密钥"（与 backend/.env 中的 API_SECRET_KEY 一致）
 3. 填写 OVH API 凭据
 4. 保存
 
