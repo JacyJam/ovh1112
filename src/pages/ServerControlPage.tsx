@@ -2126,32 +2126,32 @@ const ServerControlPage: React.FC = () => {
                 <div className="grid grid-cols-2 lg:grid-cols-6 gap-3">
                   <button
                     onClick={() => openTasksDialog(selectedServer)}
-                    className="px-4 py-2 bg-cyber-grid/50 border border-cyber-accent/30 rounded-lg text-cyber-text hover:bg-cyber-accent/10 transition-all flex items-center gap-2 justify-center">
+                    className="w-full px-4 py-3 bg-cyber-grid/50 border border-cyber-accent/30 rounded-lg text-cyber-text hover:bg-cyber-accent/10 transition-all flex items-center gap-2 justify-center">
                     <Activity className="w-4 h-4" />
                     查看任务
                   </button>
                   <button
                     onClick={() => handleReboot(selectedServer)}
-                    className="px-4 py-2 bg-cyber-grid/50 border border-cyber-accent/30 rounded-lg text-cyber-text hover:bg-cyber-accent/10 transition-all flex items-center gap-2 justify-center">
+                    className="w-full px-4 py-3 bg-cyber-grid/50 border border-cyber-accent/30 rounded-lg text-cyber-text hover:bg-cyber-accent/10 transition-all flex items-center gap-2 justify-center">
                     <Power className="w-4 h-4" />
                     重启服务器
                   </button>
                   <button
                     onClick={openIPMIConsole}
-                    className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-lg text-blue-400 hover:bg-blue-500/20 transition-all flex items-center gap-2 justify-center">
+                    className="w-full px-4 py-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-blue-400 hover:bg-blue-500/20 transition-all flex items-center gap-2 justify-center">
                     <Monitor className="w-4 h-4" />
                     IPMI控制台
                   </button>
                   <button
                     onClick={() => openReinstallDialog(selectedServer)}
-                    className="px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 hover:bg-red-500/20 transition-all flex items-center gap-2 justify-center">
+                    className="w-full px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 hover:bg-red-500/20 transition-all flex items-center gap-2 justify-center">
                     <HardDrive className="w-4 h-4" />
                     重装系统
                   </button>
                   <button
                     onClick={handleUnlockWindows}
                     disabled={loadingUnlockWindows}
-                    className="px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-lg text-blue-400 hover:from-blue-500/20 hover:to-purple-500/20 transition-all flex items-center gap-2 justify-center disabled:opacity-50">
+                    className="w-full px-4 py-3 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-lg text-blue-400 hover:from-blue-500/20 hover:to-purple-500/20 transition-all flex items-center gap-2 justify-center disabled:opacity-50">
                     {loadingUnlockWindows ? (
                       <>
                         <RefreshCw className="w-4 h-4 animate-spin" />
@@ -2160,21 +2160,21 @@ const ServerControlPage: React.FC = () => {
                     ) : (
                       <>
                         <Zap className="w-4 h-4" />
-                        解锁 Windows 安装
+                        解锁 Windows
                       </>
                     )}
                   </button>
                   <button
                     onClick={fetchBootModes}
                     disabled={loadingBootModes}
-                    className="px-4 py-2 bg-orange-500/10 border border-orange-500/30 rounded-lg text-orange-400 hover:bg-orange-500/20 transition-all flex items-center gap-2 justify-center disabled:opacity-50">
-                    <HardDrive className="w-4 h-4" />
+                    className="w-full px-4 py-3 bg-orange-500/10 border border-orange-500/30 rounded-lg text-orange-400 hover:bg-orange-500/20 transition-all flex items-center gap-2 justify-center disabled:opacity-50">
+                    <Server className="w-4 h-4" />
                     {loadingBootModes ? '加载中...' : '启动模式'}
                   </button>
                   <button
                     onClick={fetchBiosSettings}
                     disabled={loadingBios}
-                    className="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 hover:bg-yellow-500/20 transition-all flex items-center gap-2 justify-center disabled:opacity-50">
+                    className="w-full px-4 py-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 hover:bg-yellow-500/20 transition-all flex items-center gap-2 justify-center disabled:opacity-50">
                     <Cog className="w-4 h-4" />
                     {loadingBios ? '加载中...' : 'BIOS 设置'}
                   </button>
@@ -2183,26 +2183,26 @@ const ServerControlPage: React.FC = () => {
                       setHardwareReplaceType('');
                       setShowHardwareReplaceDialog(true);
                     }}
-                    className="px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-lg text-purple-400 hover:bg-purple-500/20 transition-all flex items-center gap-2 justify-center">
+                    className="w-full px-4 py-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-purple-400 hover:bg-purple-500/20 transition-all flex items-center gap-2 justify-center">
                     <Cpu className="w-4 h-4" />
                     硬件更换
                   </button>
                   <button
                     onClick={openChangeContactDialog}
-                    className="px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400 hover:bg-green-500/20 transition-all flex items-center gap-2 justify-center">
+                    className="w-full px-4 py-3 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400 hover:bg-green-500/20 transition-all flex items-center gap-2 justify-center">
                     <Mail className="w-4 h-4" />
                     变更联系人
                   </button>
                   <button
                     onClick={() => handleOpenNetworkSpecs(selectedServer)}
                     disabled={loadingNetworkSpecs}
-                    className="px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg text-cyan-400 hover:bg-cyan-500/20 transition-all flex items-center gap-2 justify-center disabled:opacity-50">
+                    className="w-full px-4 py-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg text-cyan-400 hover:bg-cyan-500/20 transition-all flex items-center gap-2 justify-center disabled:opacity-50">
                     <Wifi className="w-4 h-4" />
                     {loadingNetworkSpecs ? '加载中...' : '网络规格'}
                   </button>
                   <button
                     onClick={() => handleOpenAdvanced(selectedServer, 'burst')}
-                    className="px-4 py-2 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 hover:from-yellow-500/20 hover:to-orange-500/20 transition-all flex items-center gap-2 justify-center">
+                    className="w-full px-4 py-3 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 hover:from-yellow-500/20 hover:to-orange-500/20 transition-all flex items-center gap-2 justify-center">
                     <Settings className="w-4 h-4" />
                     高级功能
                   </button>
@@ -3856,17 +3856,17 @@ const ServerControlPage: React.FC = () => {
               <div className="flex gap-3 justify-end">
                 <button
                   onClick={() => setShowIpmiLinkDialog(false)}
-                  className="px-4 py-2 border border-cyber-accent/30 rounded-lg text-cyber-text hover:bg-cyber-grid/50 transition-all">
-                  关闭
+                  className="px-6 py-2.5 border border-cyber-accent/30 rounded-md text-cyber-text hover:bg-cyber-accent/5 transition-colors">
+                  取消
                 </button>
                 <a
                   href={ipmiLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setShowIpmiLinkDialog(false)}
-                  className="px-6 py-2 bg-cyber-accent text-white rounded-lg hover:bg-cyber-accent/80 transition-all flex items-center gap-2">
-                  <Monitor className="w-4 h-4" />
-                  打开IPMI控制台
+                  className="px-6 py-2.5 border border-cyber-accent/30 rounded-md text-cyber-text hover:bg-cyber-accent/5 transition-colors no-underline focus:outline-none focus:ring-0 active:text-cyber-text visited:text-cyber-text"
+                  style={{ color: 'inherit' }}>
+                  打开控制台
                 </a>
               </div>
             </motion.div>
