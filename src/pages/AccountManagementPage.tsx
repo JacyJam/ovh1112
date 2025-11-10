@@ -244,24 +244,34 @@ const AccountManagementPage = () => {
       </motion.div>
 
       {/* 账户信息卡片 - 顶部主要信息 */}
-      {loading.account ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="cyber-card p-6"
-        >
-          <div className="flex items-center gap-3">
-            <Loader2 className="w-5 h-5 animate-spin text-cyber-accent" />
-            <span className="text-cyber-muted">加载账户信息中...</span>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="cyber-card p-6"
+      >
+        {loading.account ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-lg bg-cyber-grid/40 flex-shrink-0 w-10 h-10"></div>
+                  <div className="flex-1 min-w-0">
+                    <div className="h-3 bg-cyber-grid/30 rounded w-16 mb-2"></div>
+                    <div className="h-6 bg-cyber-grid/30 rounded w-32"></div>
+                  </div>
+                </div>
+                <div className="h-3 bg-cyber-grid/20 rounded w-24 pl-14"></div>
+              </div>
+            ))}
           </div>
-        </motion.div>
-      ) : accountInfo ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="cyber-card p-6"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        ) : accountInfo ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
             {/* 客户代码 */}
             <div className="space-y-2">
               <div className="flex items-center gap-3">
@@ -314,9 +324,9 @@ const AccountManagementPage = () => {
                 </p>
               )}
             </div>
-          </div>
-        </motion.div>
-      ) : null}
+          </motion.div>
+        ) : null}
+      </motion.div>
 
       {/* 详细信息标签页 */}
       <Tabs defaultValue="emails" className="w-full">
@@ -342,19 +352,27 @@ const AccountManagementPage = () => {
                   <button 
                     onClick={fetchEmailHistory}
                     className="cyber-button text-xs flex items-center gap-2"
-                    disabled={loading.emails}
                   >
-                    <RefreshCw className={`w-4 h-4 ${loading.emails ? 'animate-spin' : ''}`} />
+                    <RefreshCw className="w-4 h-4" />
                     <span>刷新</span>
                   </button>
                 </CardTitle>
                 <CardDescription>OVH 发送给您的邮件通知</CardDescription>
               </CardHeader>
               <CardContent>
-                {loading.emails ? (
-                  <div className="text-center py-8">
-                    <Loader2 className="w-8 h-8 animate-spin mx-auto text-cyber-accent" />
-                    <p className="text-cyber-muted mt-2">加载中...</p>
+                {loading.emails && emails.length === 0 ? (
+                  <div className="space-y-2 animate-pulse">
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} className="cyber-panel p-4 bg-cyber-grid/30">
+                        <div className="flex items-start gap-3">
+                          <div className="w-5 h-5 bg-cyber-grid/40 rounded mt-1 flex-shrink-0"></div>
+                          <div className="flex-1 min-w-0">
+                            <div className="h-4 bg-cyber-grid/30 rounded w-3/4 mb-2"></div>
+                            <div className="h-3 bg-cyber-grid/20 rounded w-1/2"></div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 ) : emails.length === 0 ? (
                   <div className="text-center py-8 text-cyber-muted">
@@ -362,7 +380,12 @@ const AccountManagementPage = () => {
                     <p>暂无邮件</p>
                   </div>
                 ) : (
-                  <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-2 max-h-[600px] overflow-y-auto pr-2"
+                  >
                     {emails.map((email) => (
                       <div 
                         key={email.id} 
@@ -390,7 +413,7 @@ const AccountManagementPage = () => {
                         </div>
                       </div>
                     ))}
-                  </div>
+                  </motion.div>
                 )}
               </CardContent>
             </Card>
@@ -461,19 +484,30 @@ const AccountManagementPage = () => {
                 <button 
                   onClick={fetchRefunds}
                   className="cyber-button text-xs flex items-center gap-2"
-                  disabled={loading.refunds}
                 >
-                  <RefreshCw className={`w-4 h-4 ${loading.refunds ? 'animate-spin' : ''}`} />
+                  <RefreshCw className="w-4 h-4" />
                   <span>刷新</span>
                 </button>
               </CardTitle>
               <CardDescription>查看您的退款记录和状态</CardDescription>
             </CardHeader>
             <CardContent>
-              {loading.refunds ? (
-                <div className="text-center py-8">
-                  <Loader2 className="w-8 h-8 animate-spin mx-auto text-cyber-accent" />
-                  <p className="text-cyber-muted mt-2">加载中...</p>
+              {loading.refunds && refunds.length === 0 ? (
+                <div className="space-y-3 animate-pulse">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="cyber-panel p-4 bg-cyber-grid/30">
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex-1">
+                          <div className="h-5 bg-cyber-grid/30 rounded w-32 mb-2"></div>
+                          <div className="h-4 bg-cyber-grid/20 rounded w-40"></div>
+                        </div>
+                        <div className="text-right">
+                          <div className="h-4 bg-cyber-grid/20 rounded w-16 mb-2"></div>
+                          <div className="h-6 bg-cyber-grid/30 rounded w-24"></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : refunds.length === 0 ? (
                 <div className="text-center py-8 text-cyber-muted">
@@ -481,7 +515,12 @@ const AccountManagementPage = () => {
                   <p>没有退款记录</p>
                 </div>
               ) : (
-                <div className="space-y-3">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-3"
+                >
                   {refunds.map((refund) => (
                     <div key={refund.refundId} className="cyber-panel p-4 bg-cyber-grid/30">
                       <div className="flex justify-between items-start gap-4">
@@ -516,7 +555,7 @@ const AccountManagementPage = () => {
                       </div>
                     </div>
                   ))}
-                </div>
+                </motion.div>
               )}
             </CardContent>
           </Card>
@@ -545,21 +584,27 @@ const AccountManagementPage = () => {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-cyber-muted mb-2">KYC 验证</p>
                   {loading.account ? (
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span className="text-cyber-muted text-sm">加载中...</span>
+                    <div className="space-y-2 animate-pulse">
+                      <div className="h-8 bg-cyber-grid/30 rounded w-20"></div>
+                      <div className="h-3 bg-cyber-grid/20 rounded w-24"></div>
                     </div>
-                  ) : (
-                    <>
+                  ) : accountInfo?.kycValidated !== undefined ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
                       <p className={`text-2xl font-bold mb-1 ${
-                        accountInfo?.kycValidated ? 'text-green-400' : 'text-yellow-400'
+                        accountInfo.kycValidated ? 'text-green-400' : 'text-yellow-400'
                       }`}>
-                        {accountInfo?.kycValidated ? '已验证' : '未验证'}
+                        {accountInfo.kycValidated ? '已验证' : '未验证'}
                       </p>
                       <p className="text-xs text-cyber-muted">
-                        {accountInfo?.kycValidated ? '身份已确认' : '需要验证身份'}
+                        {accountInfo.kycValidated ? '身份已确认' : '需要验证身份'}
                       </p>
-                    </>
+                    </motion.div>
+                  ) : (
+                    <p className="text-sm text-cyber-muted">-</p>
                   )}
                 </div>
               </div>
@@ -582,23 +627,29 @@ const AccountManagementPage = () => {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-cyber-muted mb-2">账户状态</p>
                   {loading.account ? (
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span className="text-cyber-muted text-sm">加载中...</span>
+                    <div className="space-y-2 animate-pulse">
+                      <div className="h-8 bg-cyber-grid/30 rounded w-16"></div>
+                      <div className="h-3 bg-cyber-grid/20 rounded w-32"></div>
                     </div>
-                  ) : (
-                    <>
+                  ) : accountInfo?.state !== undefined ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
                       <p className={`text-2xl font-bold mb-1 ${
-                        accountInfo?.state === 'complete' ? 'text-green-400' : 'text-cyber-text'
+                        accountInfo.state === 'complete' ? 'text-green-400' : 'text-cyber-text'
                       }`}>
-                        {accountInfo?.state === 'complete' ? '正常' : accountInfo?.state || '-'}
+                        {accountInfo.state === 'complete' ? '正常' : accountInfo.state || '-'}
                       </p>
-                      {accountInfo?.phone && (
+                      {accountInfo.phone && (
                         <p className="text-xs text-cyber-muted break-all">
                           电话: {accountInfo.phone}
                         </p>
                       )}
-                    </>
+                    </motion.div>
+                  ) : (
+                    <p className="text-sm text-cyber-muted">-</p>
                   )}
                 </div>
               </div>
@@ -617,21 +668,27 @@ const AccountManagementPage = () => {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-cyber-muted mb-2">账户货币</p>
                   {loading.account ? (
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span className="text-cyber-muted text-sm">加载中...</span>
+                    <div className="space-y-2 animate-pulse">
+                      <div className="h-8 bg-cyber-grid/30 rounded w-12"></div>
+                      <div className="h-3 bg-cyber-grid/20 rounded w-20"></div>
                     </div>
-                  ) : (
-                    <>
+                  ) : accountInfo?.currency?.code ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
                       <p className="text-2xl font-bold text-cyber-text mb-1">
-                        {accountInfo?.currency?.code || '-'}
+                        {accountInfo.currency.code}
                       </p>
-                      {accountInfo?.currency?.symbol && (
+                      {accountInfo.currency.symbol && (
                         <p className="text-xs text-cyber-muted">
                           符号: {accountInfo.currency.symbol}
                         </p>
                       )}
-                    </>
+                    </motion.div>
+                  ) : (
+                    <p className="text-sm text-cyber-muted">-</p>
                   )}
                 </div>
               </div>
